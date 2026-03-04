@@ -10,10 +10,13 @@ const TERMINAL_COMMANDS = {
   "cat experience": "Lists work experience",
   "cat skills": "Lists technical skills",
   "cat projects": "Shows featured projects",
+  "download resume": "Downloads the resume PDF",
+  "play pokemon": "Start a dev battle mini-game",
+  game: "Start a dev battle mini-game",
   exit: "Quits the terminal mode and returns to GUI",
 };
 
-export default function TerminalInterface({ onExit }) {
+export default function TerminalInterface({ onExit, onGame }) {
   const [history, setHistory] = useState([
     { type: "system", content: "SYSTEM.STATUS: ONLINE" },
     {
@@ -84,6 +87,19 @@ export default function TerminalInterface({ onExit }) {
           null,
           2,
         );
+        break;
+      case "download resume":
+        window.open("/resume.pdf", "_blank");
+        response = "Opening resume.pdf in a new tab...";
+        break;
+      case "play pokemon":
+      case "game":
+        if (onGame) {
+          onGame();
+          response = "Loading DEV BATTLE v1.0...";
+        } else {
+          response = "Game module not available.";
+        }
         break;
       case "exit":
         onExit();

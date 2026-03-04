@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const links = [
   { label: "About", href: "#about" },
@@ -8,7 +8,7 @@ const links = [
   { label: "Achievements", href: "#achievements" },
 ];
 
-export default function Navbar({ toggleTerminal }) {
+export default function Navbar({ toggleTerminal, toggleGame }) {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -117,6 +117,22 @@ export default function Navbar({ toggleTerminal }) {
           }}
         >
           <span style={{ color: "var(--accent)" }}>&gt;_</span> Terminal
+        </button>
+        <button
+          className="nav-link"
+          style={{
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: "var(--font-mono)",
+            textAlign: "left",
+          }}
+          onClick={() => {
+            setMenuOpen(false);
+            toggleGame();
+          }}
+        >
+          <span style={{ color: "#e06c75" }}>&#9679;</span> Battle
         </button>
         <a
           href="#contact"

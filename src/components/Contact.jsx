@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { personal } from "../data/resume";
+import { Mail, Phone, Linkedin, Github, Code2 } from "lucide-react";
+import ContactForm from "./ContactForm";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,8 +71,11 @@ export default function Contact() {
           <motion.div className="contact-right" {...reveal(0.18)}>
             <a href={`mailto:${personal.email}`} className="contact-row">
               <div className="contact-row-left">
-                <span className="contact-row-label">Email</span>
-                <span className="contact-row-val">{personal.email}</span>
+                <Mail size={18} className="contact-icon" />
+                <div className="contact-row-text">
+                  <span className="contact-row-label">Email</span>
+                  <span className="contact-row-val">{personal.email}</span>
+                </div>
               </div>
               <span className="contact-arrow">↗</span>
             </a>
@@ -80,8 +85,11 @@ export default function Contact() {
               className="contact-row"
             >
               <div className="contact-row-left">
-                <span className="contact-row-label">Phone</span>
-                <span className="contact-row-val">{personal.phone}</span>
+                <Phone size={18} className="contact-icon" />
+                <div className="contact-row-text">
+                  <span className="contact-row-label">Phone</span>
+                  <span className="contact-row-val">{personal.phone}</span>
+                </div>
               </div>
               <span className="contact-arrow">↗</span>
             </a>
@@ -93,8 +101,11 @@ export default function Contact() {
               className="contact-row"
             >
               <div className="contact-row-left">
-                <span className="contact-row-label">LinkedIn</span>
-                <span className="contact-row-val">kshitiz-bartaria</span>
+                <Linkedin size={18} className="contact-icon" />
+                <div className="contact-row-text">
+                  <span className="contact-row-label">LinkedIn</span>
+                  <span className="contact-row-val">kshitiz-bartaria</span>
+                </div>
               </div>
               <span className="contact-arrow">↗</span>
             </a>
@@ -106,7 +117,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="social-chip"
               >
-                GitHub
+                <Github size={14} /> GitHub
               </a>
               <a
                 href={personal.linkedin}
@@ -114,7 +125,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="social-chip"
               >
-                LinkedIn
+                <Linkedin size={14} /> LinkedIn
               </a>
               <a
                 href={personal.leetcode}
@@ -122,11 +133,13 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="social-chip"
               >
-                LeetCode
+                <Code2 size={14} /> LeetCode
               </a>
             </div>
           </motion.div>
         </div>
+
+        <ContactForm />
       </div>
 
       <div className="footer">

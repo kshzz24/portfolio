@@ -30,12 +30,11 @@ export default function About() {
         <div className="about-grid">
           <div className="about-left">
             <motion.p className="about-intro" {...reveal(0.1)}>
-              I&apos;m a software engineer with{" "}
-              <strong>2+ years of frontend</strong> and{" "}
-              <strong>1.5+ years of backend</strong> experience, currently
-              building AI-powered security systems at SecLogic Technologies in
-              Noida. My work sits at the intersection of machine learning,
-              distributed systems, and product-grade user interfaces.
+              I&apos;m a software engineer with <strong>2+ years of </strong>{" "}
+              experience, currently building AI-powered security systems at
+              SecLogic Technologies in Noida. My work sits at the intersection
+              of machine learning, distributed systems, and product-grade user
+              interfaces.
             </motion.p>
             <motion.p className="about-intro" {...reveal(0.18)}>
               I specialize in systems that are both technically sophisticated

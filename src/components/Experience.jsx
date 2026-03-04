@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { experience } from "../data/resume";
+import { BriefcaseBusiness, Building } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,10 +60,16 @@ export default function Experience() {
 
         <div className="exp-list">
           {experience.map((job, idx) => (
-            <div key={job.id} className="exp-item glass-panel">
+            <div key={job.id} className="exp-item glass-panel  !p-2">
               <div className="exp-meta">
-                <span className="exp-company">{job.company}</span>
-                <span className="exp-role">{job.role}</span>
+                <div className="exp-meta-header">
+                  <Building size={16} className="exp-icon" />
+                  <span className="exp-company">{job.company}</span>
+                </div>
+                <div className="exp-meta-role">
+                  <BriefcaseBusiness size={16} className="exp-icon" />
+                  <span className="exp-role">{job.role}</span>
+                </div>
                 <span className="exp-period">{job.period}</span>
                 <span className="exp-badge">{job.type}</span>
               </div>

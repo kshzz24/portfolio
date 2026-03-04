@@ -49,7 +49,7 @@ function useScramble(finalText, { delay = 0, duration = 900 } = {}) {
   return display;
 }
 
-function MagneticBtn({ href, children, className }) {
+function MagneticBtn({ href, children, className, ...rest }) {
   const ref = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
@@ -82,6 +82,7 @@ function MagneticBtn({ href, children, className }) {
             ? "transform 0.5s cubic-bezier(0.16,1,0.3,1)"
             : "transform 0.1s linear",
       }}
+      {...rest}
     >
       {children}
     </a>
@@ -210,25 +211,20 @@ export default function Hero() {
               <MagneticBtn href="#contact" className="btn-outline">
                 sudo contact
               </MagneticBtn>
+              <MagneticBtn
+                href="/resume.pdf"
+                className="btn-outline mx-2"
+                download="Kshitiz_Bartaria_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                download resume.pdf
+              </MagneticBtn>
             </motion.div>
           </div>
         </div>
 
         {/* Data card — moved inside hero-content to flow natively below text instead of absolute positioning */}
-        <motion.div
-          className="hero-data-card"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
-          aria-hidden="true"
-        >
-          {personal.stats.map((s, i) => (
-            <div key={i} className="data-card-row">
-              <span>{s.label}</span>
-              <strong>{s.value}</strong>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Scroll hint */}

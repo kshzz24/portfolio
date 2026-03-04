@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import Lenis from "lenis";
 import "./App.css";
 
@@ -15,16 +15,17 @@ import Contact from "./components/Contact";
 import GitHubHeatmap from "./components/GitHubHeatmap";
 import TerminalInterface from "./components/TerminalInterface";
 
+const PokemonGame = lazy(() => import("./components/PokemonGame"));
+
 export default function App() {
   const lenisRef = useRef(null);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false); // Global toggle state
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isGameOpen, setIsGameOpen] = useState(false);
 
   useEffect(() => {
-    // Prevent browser from restoring scroll position mid-page on reload
     if (history.scrollRestoration) history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
 
-    // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -51,26 +52,29 @@ export default function App() {
     };
   }, []);
 
-  // Pause Lenis smooth scrolling when the terminal overlay is active
   useEffect(() => {
-    if (isTerminalOpen) {
+    if (isTerminalOpen || isGameOpen) {
       lenisRef.current?.stop();
     } else {
       lenisRef.current?.start();
     }
-  }, [isTerminalOpen]);
+  }, [isTerminalOpen, isGameOpen]);
+
+  const openGame = () => setIsGameOpen(true);
 
   return (
     <>
       <div className="page-bg" aria-hidden="true" />
 
-      {/* 3D WebGL Background Layer (Hidden when terminal is open for performance) */}
-      {!isTerminalOpen && <Scene3D />}
+      {!isTerminalOpen && !isGameOpen && <Scene3D />}
 
       <CustomCursor />
 
       {!isTerminalOpen && (
-        <Navbar toggleTerminal={() => setIsTerminalOpen(true)} />
+        <Navbar
+          toggleTerminal={() => setIsTerminalOpen(true)}
+          toggleGame={openGame}
+        />
       )}
 
       {!isTerminalOpen ? (
@@ -85,8 +89,34 @@ export default function App() {
           <Contact />
         </main>
       ) : (
-        <TerminalInterface onExit={() => setIsTerminalOpen(false)} />
+        <TerminalInterface
+          onExit={() => setIsTerminalOpen(false)}
+          onGame={() => {
+            setIsTerminalOpen(false);
+            setIsGameOpen(true);
+          }}
+        />
       )}
+
+      {/* Pokemon Game overlay */}
+      {isGameOpen && (
+        <Suspense
+          fallback={
+            <div className="pokemon-overlay">
+              <div className="pokemon-loading">Loading DEV BATTLE...</div>
+            </div>
+          }
+        >
+          <PokemonGame onClose={() => setIsGameOpen(false)} />
+        </Suspense>
+      )}
+
+      {/* Pokeball trigger */}
+      <div
+        className="pokeball-trigger"
+        onClick={openGame}
+        title="Start DEV BATTLE!"
+      />
     </>
   );
 }

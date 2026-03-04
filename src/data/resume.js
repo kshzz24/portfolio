@@ -14,7 +14,7 @@ export const personal = {
   stats: [
     { value: "2 Years", label: "Frontend" },
     { value: "2 Years", label: "Backend" },
-    { value: "10K+", label: "Daily Events" },
+    // { value: "10K+", label: "Daily Events" },
     { value: "5+", label: "Projects Shipped" },
   ],
 };
